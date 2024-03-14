@@ -33,11 +33,20 @@
       <input type="text" v-model="age">
       <div>{{ info }}</div>
     </div>
+    <div>
+      <input type="button" @click="addButton" value="点击之后会出现新的按钮">
+      <input v-for="(buttonLabel, index) in buttons" :key="index" type="button" :value="buttonLabel">
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+const buttons = ref([]);
+const addButton = () => {
+  buttons.value.push("新的按钮");
+}
+
 const age = ref(18);
 const person = {
   name: "徐扑漫",
