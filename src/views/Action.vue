@@ -1,11 +1,10 @@
 <template>
-
+<Title color="green"></Title>
 </template>
 
-<script>
-export default {
-  name: "Action"
-}
+<script setup>
+import Title from "../components/Title.vue";
+
 </script>
 
 <style scoped>

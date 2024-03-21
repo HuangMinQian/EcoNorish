@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Title></Title>
     <header>
       <h1>EcoNourish</h1>
       <h2>前端Vue 3 + Vite 搭建的环境保护教育平台</h2>
@@ -42,6 +43,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
+
 const buttons = ref([]);
 const addButton = () => {
   buttons.value.push("新的按钮");

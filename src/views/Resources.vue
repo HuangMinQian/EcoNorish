@@ -1,13 +1,12 @@
 <template>
-
-</template>
-
-<script>
-export default {
-  name: "Resources"
-}
-</script>
-
-<style scoped>
-
-</style>
+  <Title color="green"></Title>
+  </template>
+  
+  <script setup>
+  import Title from "../components/Title.vue";
+  
+  </script>
+  
+  <style scoped>
+  
+  </style>
