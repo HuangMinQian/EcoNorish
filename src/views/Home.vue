@@ -29,40 +29,12 @@
         </li>
       </ul>
     </nav>
-    <div>
-      <span>请输入您的年龄：</span>
-      <input type="text" v-model="age">
-      <div>{{ info }}</div>
-    </div>
-    <div>
-      <input type="button" @click="addButton" value="点击之后会出现新的按钮">
-      <input v-for="(buttonLabel, index) in buttons" :key="index" type="button" :value="buttonLabel">
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
 import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
-
-const buttons = ref([]);
-const addButton = () => {
-  buttons.value.push("新的按钮");
-}
-
-const age = ref(18);
-const person = {
-  name: "徐扑漫",
-  sex: "女",
-};
-const info = computed(() => { //计算属性
-  const fullInfo = {
-    ...person, // 展开运算符
-    ageNum: age.value,
-  };
-  const { name, sex, ageNum } = fullInfo // 解构
-  return `姓名：${name}, 性别：${sex}, 年龄：${ageNum}`; // 模版字符串
-});
 </script>
 <style>
 </style>
