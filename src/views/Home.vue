@@ -10,22 +10,22 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/knowledge">环保知识</router-link>
+          <router-link to="/knowledge" :class="isClickRouter('/knowledge') ? 'cache-view' : ''">环保知识</router-link>
         </li>
         <li>
-          <router-link to="/news">新闻更新</router-link>
+          <router-link to="/news" :class="isClickRouter('/news') ? 'cache-view' : ''">新闻更新</router-link>
         </li>
         <li>
-          <router-link to="/lifestyle">绿色生活</router-link>
+          <router-link to="/lifestyle" :class="isClickRouter('/lifestyle') ? 'cache-view' : ''">绿色生活</router-link>
         </li>
         <li>
-          <router-link to="/action">社区行动</router-link>
+          <router-link to="/action" :class="isClickRouter('/action') ? 'cache-view' : ''">社区行动</router-link>
         </li>
         <li>
-          <router-link to="/resources">资源下载</router-link>
+          <router-link to="/resources" :class="isClickRouter('/resources') ? 'cache-view' : ''">资源下载</router-link>
         </li>
         <li>
-          <router-link to="/join">加入我们</router-link>
+          <router-link to="/join" :class="isClickRouter('/join') ? 'cache-view' : ''">加入我们</router-link>
         </li>
       </ul>
     </nav>
@@ -33,8 +33,20 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
+  import { ref, computed, onMounted } from "vue";
+  import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
+  import { useStore } from "vuex";
+
+  const store = useStore();
+
+  const tagViews = store.getters.tagViews;
+
+  const isClickRouter = computed(() => {
+    return (routePath) => tagViews.indexOf(routePath) !== -1;
+  });
 </script>
 <style>
+  .cache-view {
+    color: rgba(255, 0, 0, 0.507);
+  }
 </style>
