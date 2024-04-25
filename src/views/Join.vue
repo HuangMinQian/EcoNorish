@@ -31,7 +31,9 @@
       <div class="error-message" v-if="phoneError">{{ phoneError }}</div>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit(ruleFormRef)">提交</el-button>
+      <div style="display: flex; justify-content: center; width: 100%;">
+        <el-button type="primary" @click="onSubmit(ruleFormRef)">提交</el-button>
+      </div>
     </el-form-item>
   </el-form>
   <div v-if="submitted" class="thank-you-message">

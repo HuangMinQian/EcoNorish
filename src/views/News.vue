@@ -1,32 +1,64 @@
 <template>
   <Title color="green"></Title>
-  <div class="swiper">
-    <el-carousel height="300px">
-      <el-carousel-item v-for="(item, index) in imgList" :key="index">
-        <img :src="item" alt="" />
-      </el-carousel-item>
-    </el-carousel>
+  <div class="grid">
+    <div class="grid-item" v-for="(item, index) in gridList" :key="index" @click="handleOpenDialog">
+      <img :src="item.img" alt="" />
+      {{ item.name }}
+    </div>
   </div>
+  <el-dialog v-model="show" title="弹窗" @close="show = false">
+    <div>弹窗内容</div>
+  </el-dialog>
 </template>
 
 <script setup>
   import Title from "../components/Title.vue";
   import { ref } from "vue";
-
-  const imgList = ref([
-    "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
-    "https://pic.rmb.bdstatic.com/bjh/gallery/53af0c98ac1c0ae666f270c31ff95bd24306.jpeg",
-    "https://img1.baidu.com/it/u=3775719125,2876837394&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
-    "https://img2.baidu.com/it/u=855369075,175194576&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500"
+  const gridList = ref([
+    {
+      img: "http://paper.people.com.cn/rmrb/images/1/20240425/1713993121991_1.jpg",
+      name: "郑和公园内树龄600多年的紫藤进入盛花期"
+    },
+    {
+      img: "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
+      name: "1212123123"
+    },
+    {
+      img: "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
+      name: "1212123123"
+    },
+    {
+      img: "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
+      name: "1212123123"
+    },
+    {
+      img: "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
+      name: "1212123123"
+    },
+    {
+      img: "https://copyright.bdstatic.com/vcg/creative/1434d89b9eca5356a80fc06124ef6c50.jpg@h_1280",
+      name: "1212123123"
+    }
   ]);
+  const show = ref(false);
+
+  const handleOpenDialog = () => {
+    show.value = true;
+  };
 </script>
 
 <style scoped>
-  .swiper {
-    width: 800px;
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
-  .swiper img {
+  .grid-item {
+    height: 300px;
+    padding: 10px;
+  }
+  .grid-item img {
     width: 100%;
-    height: 100%;
+    height: 200px;
+    border-radius: 10px;
   }
 </style>
