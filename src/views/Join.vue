@@ -1,91 +1,103 @@
 <template>
   <Title color="green"></Title>
-  <div class="join-us-container">
-    <h1>加入我们</h1>
-    <form @submit.prevent="submitForm">
-      <div class="form-group">
-        <label for="name">姓名：</label>
-        <input id="name" v-model="name" required />
-      </div>
-      <div class="form-group">
-        <label for="age">年龄：</label>
-        <select id="age" v-model="age">
-          <option disabled value="">请选择年龄</option>
-          <option v-for="n in 23" :key="n" :value="n + 17">{{ n + 17 }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <span>希望投入的环境保护领域:</span>
-        <div v-for="field in fields" :key="field">
-          <input type="checkbox" :id="field" :value="field" v-model="selectedFields" />
-          <label :for="field">{{ field }}</label>
-        </div>
-      </div>
-      <div>
-        <label for="phone">联系方式(手机号)：</label>
-        <input id="phone" v-model="phone" @blur="validatePhone" required />
-        <div class="error-message" v-if="phoneError">{{ phoneError }}</div>
-      </div>
-      <button type="submit">提交</button>
-    </form>
-    <div v-if="submitted" class="thank-you-message">
-      感谢您的参与！<br>(3秒后自动回到首页)
-    </div>
+  <el-form ref="ruleFormRef" style="max-width: 600px" :model="sizeForm" label-width="auto" label-position="right"
+    size="large" :rules="rules">
+    <el-form-item label="姓名" prop="name">
+      <el-input v-model="sizeForm.name" placeholder="请输入姓名" />
+    </el-form-item>
+    <el-form-item label="年龄" prop="age">
+      <el-select v-model="sizeForm.age" placeholder="请选择您的年龄">
+        <el-option v-for="n in 23" :key="n" :value="n + 17">{{ n + 17 }}</el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="你希望投身的领域" prop="fields">
+      <el-checkbox-group v-model="sizeForm.fields">
+        <el-checkbox value="clean" name="fields">
+          清洁能源
+        </el-checkbox>
+        <el-checkbox value="ocean" name="fields">
+          海洋保护
+        </el-checkbox>
+        <el-checkbox value="climate" name="fields">
+          气候变化
+        </el-checkbox>
+        <el-checkbox value="animal" name="fields">
+          野生动物保护
+        </el-checkbox>
+      </el-checkbox-group>
+    </el-form-item>
+    <el-form-item label="联系方式" prop="phone">
+      <el-input v-model="sizeForm.phone" placeholder="请输入手机号" />
+      <div class="error-message" v-if="phoneError">{{ phoneError }}</div>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit(ruleFormRef)">提交</el-button>
+    </el-form-item>
+  </el-form>
+  <div v-if="submitted" class="thank-you-message">
+    感谢您的参与！<br>(3秒后自动回到首页)
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import Title from "../components/Title.vue";
-
-const name = ref('');
-const age = ref('');
-const fields = [
-  '清洁能源',
-  '可持续农业',
-  '环境教育',
-  '海洋保护',
-  '气候变化',
-  '野生动物保护',
-];
-const selectedFields = ref([]);
-
+import type { FormInstance, FormRules } from 'element-plus'
+interface RuleForm {
+  name: string
+  age: string
+  fields: string[]
+  phone: string
+}
+const ruleFormRef = ref<FormInstance>()
+const sizeForm = ref({
+  name: null,
+  age: null,
+  fields: [],
+  phone: null,
+})
+const rules = reactive<FormRules<RuleForm>>({
+  name: [
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+  ],
+  age: [
+    {
+      required: true,
+      message: '请输入年纪',
+      trigger: 'change',
+    },
+  ],
+  phone: [
+    {
+      required: true,
+      message: '请输入手机号',
+      trigger: 'change',
+    },
+  ],
+})
+const phoneError = ref('');
 const submitted = ref(false);
 const router = useRouter();
-
-const phone = ref('');
-const phoneError = ref('');
-const isFormValid = ref(false);
-
-// 正则表达式用于校验中国大陆手机号
-const phoneRegex = /^1[3-9]\d{9}$/;
-
-const validatePhone = () => {
-  if (!phoneRegex.test(phone.value)) {
-    phoneError.value = '请输入有效的手机号码';
-    isFormValid.value = false;
-  } else {
-    phoneError.value = '';
-    isFormValid.value = true;
-  }
-};
-
-
-const submitForm = () => {
-  console.log({
-    name: name.value,
-    age: age.value,
-    selectedFields: selectedFields.value,
-    phone: phone.value,
-  });
-  validatePhone();
-  if (!isFormValid.value) return;
-  submitted.value = true;
-  setTimeout(() => {
-    router.push('/');
-  }, 3000);
-};
+const onSubmit = async (formEl: FormInstance | undefined) => {
+  console.log(sizeForm.value);
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+      submitted.value = true;
+      setTimeout(() => {
+        router.push('/');
+      }, 3000);
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
 </script>
 
-<style scoped></style>
+<style>
+.el-radio-group {
+  margin-right: 12px;
+}
+</style>

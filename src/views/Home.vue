@@ -4,7 +4,7 @@
     <header>
       <h1>EcoNourish</h1>
       <h2>前端Vue 3 + Vite 搭建的环境保护教育平台</h2>
-      <h2>2022级xxx</h2>
+      <h2>2022级 黄敏倩</h2>
     </header>
 
     <nav>
@@ -33,20 +33,20 @@
 </template>
 
 <script setup>
-  import { ref, computed, onMounted } from "vue";
-  import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
-  import { useStore } from "vuex";
+import { ref, computed, onMounted } from "vue";
+import Title from "../components/Title.vue"; // 组件的引入、组件属性的绑定
+import { useStore } from "vuex";
 
-  const store = useStore();
+const store = useStore();
 
-  const tagViews = store.getters.tagViews;
+const tagViews = store.getters.tagViews;
 
-  const isClickRouter = computed(() => {
-    return (routePath) => tagViews.indexOf(routePath) !== -1;
-  });
+const isClickRouter = computed(() => {
+  return (routePath) => tagViews.indexOf(routePath) !== -1;
+});
 </script>
 <style>
-  .cache-view {
-    color: rgba(255, 0, 0, 0.507);
-  }
+.cache-view {
+  color: rgba(255, 0, 0, 0.507);
+}
 </style>
