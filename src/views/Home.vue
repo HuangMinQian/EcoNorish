@@ -4,7 +4,7 @@
     <header>
       <h1>EcoNourish</h1>
       <h2>前端Vue 3 + Vite 搭建的环境保护教育平台</h2>
-      <h2>2022级教育技术学（师范）1班黄敏倩</h2>
+      <h2>2022级xxx</h2>
     </header>
 
     <nav>
