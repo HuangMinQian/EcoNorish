@@ -1,5 +1,6 @@
 <template>
   <Title color="green"></Title>
+  <!-- elementPlus库表单组件的应用 -->
   <el-form ref="ruleFormRef" style="max-width: 600px" :model="sizeForm" label-width="auto" label-position="right"
     size="large" :rules="rules">
     <el-form-item label="姓名" prop="name">
@@ -42,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive } from 'vue'; // ref跟踪非对象类型的响应式状态，reactive跟踪对象类型的响应式状态。
 import { useRouter } from 'vue-router';
 import Title from "../components/Title.vue";
 import type { FormInstance, FormRules } from 'element-plus'
@@ -59,7 +60,7 @@ const sizeForm = ref({
   fields: [],
   phone: null,
 })
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<RuleForm>>({ // 表单校验规则
   name: [
     { required: true, message: '请输入姓名', trigger: 'blur' },
   ],
@@ -81,14 +82,14 @@ const rules = reactive<FormRules<RuleForm>>({
 const phoneError = ref('');
 const submitted = ref(false);
 const router = useRouter();
-const onSubmit = async (formEl: FormInstance | undefined) => {
+const onSubmit = async (formEl: FormInstance | undefined) => { // 异步：await formEl.validate()用来异步执行表单验证，回调valid, fields监听验证结果。
   console.log(sizeForm.value);
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
       console.log('submit!')
       submitted.value = true;
-      setTimeout(() => {
+      setTimeout(() => { // 计时器
         router.push('/');
       }, 3000);
     } else {

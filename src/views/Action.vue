@@ -1,8 +1,12 @@
 <template>
   <Title color="green"></Title>
   <div class="forum-list">
+    <!-- for遍历forumLis数组，并为数组中的每个项目创建一个forum-item元素 -->
+    <!-- 给每个元素设置唯一键值key的绑定，便于识别各个节点，优化虚拟DOM的更新过程 -->
+    <!-- 监听点击事件 -->
     <div class="forum-item" v-for="item in forumList" :key="item.id" @click="handleClickNum(item)">
       <div class="left-side">
+        <!-- 文本插值 -->
         <div class="item-id">{{ item.username }}</div>
         <div class="content">{{ item.content }}</div>
       </div>
@@ -17,9 +21,9 @@
 <script setup>
   import Title from "../components/Title.vue";
   import { ref } from "vue";
-  import { Star } from "@element-plus/icons-vue";
+  import { Star } from "@element-plus/icons-vue"; // 从elementPlus库中引入了图标
 
-  const forumList = ref([
+  const forumList = ref([ // ref：响应式属性会被Vue监听，当数据发生变化时，视图会自动更新
   {
     id: 1,
     username: "赵阳光",

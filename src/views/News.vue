@@ -1,6 +1,8 @@
 <template>
   <Title color="green"></Title>
   <div class="grid">
+    <!-- grid网格布局 -->
+    <!-- 每个网格通过v-for迭代数组 -->
     <div class="grid-item" v-for="item in gridList" :key="item.id" @click="handleOpenDialog(item)">
       <img :src="item.img" alt="" />
       {{ item.name }}
@@ -11,7 +13,7 @@
 <script setup>
 import Title from "../components/Title.vue";
 import { ref } from "vue";
-const gridList = ref([
+const gridList = ref([ // ref初始化复杂实例
   {
     id: 1,
     img: "http://paper.people.com.cn/rmrb/images/1/20240425/1713993121991_1.jpg",
