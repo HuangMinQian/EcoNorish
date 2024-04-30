@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'; // ref跟踪非对象类型的响应式状态，reactive跟踪对象类型的响应式状态。
+import { ref, reactive } from 'vue'; // ref跟踪非对象类型的响应式状态，reactive跟踪对象类型的响应式状态
 import { useRouter } from 'vue-router';
 import Title from "../components/Title.vue";
 import type { FormInstance, FormRules } from 'element-plus'
@@ -82,7 +82,7 @@ const rules = reactive<FormRules<RuleForm>>({ // 表单校验规则
 const phoneError = ref('');
 const submitted = ref(false);
 const router = useRouter();
-const onSubmit = async (formEl: FormInstance | undefined) => { // 异步：await formEl.validate()用来异步执行表单验证，回调valid, fields监听验证结果。
+const onSubmit = async (formEl: FormInstance | undefined) => { // 异步：await formEl.validate()用来异步执行表单验证，回调valid, fields监听验证结果
   console.log(sizeForm.value);
   if (!formEl) return
   await formEl.validate((valid, fields) => {

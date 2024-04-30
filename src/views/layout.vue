@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-  // setup语法糖：直接在<script>中声明组件的响应式逻辑和生命周期等，无需`export default`导出对象
+  // setup语法糖：直接在<script>中声明组件的响应式逻辑和生命周期等，无需export default导出对象
   import { computed } from "vue";
   import Title from "../components/Title.vue"; // 组件封装
   import { useStore } from "vuex";
@@ -47,12 +47,12 @@
   const tagViews = store.getters.tagViews;
 
   const isClickRouter = computed(() => {
-    // 响应式计算属性：基于响应式依赖进行缓存的。只有在相关响应式依赖发生改变时，计算属性才会重新求值，
+    // 响应式计算属性：基于响应式依赖进行缓存的。只有在相关响应式依赖发生改变时，计算属性才会重新求值
     return (routePath) => tagViews.indexOf(routePath) !== -1;
   });
 </script>
 <style>
-  /* 动态样式绑定：在模板中绑定 HTML 类。当需要根据组件的状态动态更改元素的类时，可以使用v-bind指令的对象语法或数组语法来实现。 */
+  /* 动态样式绑定：在模板中绑定html类。当需要根据组件的状态动态更改元素的类时，可以使用v-bind指令的对象语法或数组语法来实现 */
   .cache-view {
     color: rgba(255, 0, 0, 0.507);
   }
